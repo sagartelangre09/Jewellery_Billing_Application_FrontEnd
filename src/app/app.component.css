@@ -1,0 +1,414 @@
+/* ==========================================
+   GLOBAL & RESETS
+   ========================================== */
+:host {
+  --primary-color: #4a143c;
+  --primary-hover: #360d2b;
+  --bg-color: #f4f5f7;
+  --card-bg: #ffffff;
+  --text-color: #2b2b2b;
+  --border-color: #e0e0e0;
+  --danger-color: #d32f2f;
+  --danger-hover: #b71c1c;
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text-color);
+  display: block;
+  background-color: var(--bg-color);
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   LOGIN CARD
+   ========================================== */
+.page {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.login-card {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 30px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.login-card h1 {
+  margin-top: 0;
+  color: var(--primary-color);
+  font-size: 24px;
+}
+
+.login-card p {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.login-card input {
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.login-card button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+}
+
+.hint {
+  font-size: 12px;
+  color: #777;
+  margin-top: 16px;
+  background: #f8f9fa;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+.error {
+  color: var(--danger-color);
+  font-size: 13px;
+  margin-top: 12px;
+  font-weight: 500;
+}
+
+/* ==========================================
+   HEADER
+   ========================================== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--card-bg);
+  padding: 16px 24px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 20px;
+  color: var(--primary-color);
+}
+
+header span {
+  font-size: 13px;
+  color: #666;
+}
+
+/* ==========================================
+   PANELS & FORMS
+   ========================================== */
+.panel {
+  background: var(--card-bg);
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 24px;
+}
+
+.panel h2 {
+  margin-top: 0;
+  font-size: 18px;
+  color: var(--primary-color);
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* Grid Layouts */
+.grid2, .grid3, .grid4 {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.grid2 { grid-template-columns: repeat(2, 1fr); }
+.grid3 { grid-template-columns: repeat(3, 1fr); }
+.grid4 { grid-template-columns: repeat(4, 1fr); }
+
+/* Form Controls */
+input, select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(74, 20, 96, 0.1);
+}
+
+button {
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+button:hover {
+  background: var(--primary-hover);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button.secondary {
+  background: #e9ecef;
+  color: #495057;
+}
+
+button.secondary:hover {
+  background: #dee2e6;
+}
+
+button.danger {
+  background: var(--danger-color);
+  padding: 6px 12px;
+  font-size: 16px;
+}
+
+button.danger:hover {
+  background: var(--danger-hover);
+}
+
+/* ==========================================
+   TABLES & DATA INPUT
+   ========================================== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+
+th, td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 14px;
+}
+
+th {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #495057;
+}
+
+td input {
+  padding: 6px 8px;
+}
+
+/* ==========================================
+   TOTALS & SUMMARY SECTION
+   ========================================== */
+.totals-section {
+  background: #fdfbfd;
+  border: 1px solid #f0e6ed;
+  padding: 16px;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.totals {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+  font-size: 15px;
+}
+
+.totals label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.totals label input {
+  width: 100px;
+}
+
+.totals strong {
+  font-size: 18px;
+  color: var(--primary-color);
+}
+
+/* ==========================================
+   BILL PREVIEW (PHYSICAL RECEIPT DESIGN)
+   ========================================== */
+.bill {
+  background: #ffffff;
+  border: 1px solid #222;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.bill-banner {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  padding: 16px;
+  text-align: center;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.bill-banner .tagline {
+  font-size: 11px;
+  margin: 0 0 6px 0;
+  letter-spacing: 0.5px;
+}
+
+.bill-banner h2 {
+  margin: 0;
+  font-size: 26px;
+  letter-spacing: 1px;
+}
+
+.bill-banner p {
+  margin: 6px 0 0 0;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.bill-meta {
+  border-bottom: 1px solid #222;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.bill-meta p {
+  margin: 4px 0;
+}
+
+.section-title {
+  text-align: center;
+  border: 1px solid #222;
+  border-left: none;
+  border-right: none;
+  padding: 6px;
+  margin: 12px 0;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.bill table {
+  border: 1px solid #222;
+}
+
+.bill th, .bill td {
+  border: 1px solid #222;
+  padding: 6px 8px;
+}
+
+.bill-summary {
+  border: 1px solid #222;
+  border-top: none;
+  margin-bottom: 12px;
+}
+
+.left-summary, .right-summary {
+  padding: 10px;
+}
+
+.left-summary {
+  border-right: 1px solid #222;
+}
+
+.right-summary {
+  text-align: right;
+}
+
+.bill-footer {
+  border-top: 1px solid #222;
+  padding-top: 12px;
+  font-size: 12px;
+}
+
+.signature {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN & PRINT
+   ========================================== */
+@media (max-width: 900px) {
+  .grid3, .grid4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid2, .grid3, .grid4 {
+    grid-template-columns: 1fr;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .totals {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .totals label input {
+    width: 100%;
+  }
+
+  .panel {
+    padding: 16px;
+    overflow-x: auto;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .bill, .bill * {
+    visibility: visible;
+  }
+
+  .bill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+  }
+
+  .bill button {
+    display: none;
+  }
+}
