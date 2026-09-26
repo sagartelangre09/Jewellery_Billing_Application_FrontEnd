@@ -31,7 +31,7 @@
     <div class="grid3">
       <input [(ngModel)]="urdNumber" placeholder="URD No (Optional)">
       <input [(ngModel)]="salesmanName" placeholder="Salesman Name (Optional)">
-      <!-- <input [(ngModel)]="billedBy" placeholder="Billed By"> -->
+    <input [(ngModel)]="billedBy" placeholder="Billed By">
     </div>
 
     <!-- Item Details Table -->
@@ -54,8 +54,9 @@
           <td><input [(ngModel)]="x.itemName" placeholder="Ring"></td>
           <td><select [(ngModel)]="x.metal">
               <option>Gold</option>
+              <option>Old_Gold</option>
               <option>Silver</option>
-              <option>Platinum</option>
+               <option>Old_Silver</option>    
             </select></td>
           <td><input type="number" [(ngModel)]="x.grossWeight"></td>
            <td><select [(ngModel)]="x.Purity">
@@ -64,10 +65,8 @@
               <option>18k</option>
               <option>98.50</option>
             </select></td>
-          <!-- <td>{{net(x)|number:'1.2-2'}}</td> -->
           <td><input type="number" [(ngModel)]="x.ratePerGram"></td>
           <td><input type="number" [(ngModel)]="x.makingCharges"></td>
-          <!-- <td><input type="number" [(ngModel)]="x.stoneCharges"></td> -->
           <td>{{amount(x)|number:'1.2-2'}}</td>
           <td><button class="danger" (click)="removeItem(i)">×</button></td>
         </tr>
@@ -78,15 +77,19 @@
 
     <!-- Payment & Deduction Breakdown -->
     <div class="totals-section">
-      <!-- <div class="grid2">
-        <label>Cash Paid ₹ <input type="number" [(ngModel)]="cashPaid"></label>
-        <label>Amount in Words <input [(ngModel)]="amountInWords" placeholder="One Lakh..."></label>
-      </div> -->
+       <div class="grid2">
+        <!-- <label>Cash Paid ₹ <input type="number" [(ngModel)]="cashPaid"></label> -->
+        <!-- <label>Amount in Words <input [(ngModel)]="amountInWords" placeholder="One Lakh..."></label> -->
+          <p><b>Pay_Mode:</b><select [(ngModel)]="paymode">
+              <option>Online</option>
+              <option>Cash</option>
+            </select></p>
+      </div>
 
       <div class="totals">
         <div>Subtotal: <b>₹{{subtotal() | number:'1.2-2'}}</b></div>
         <label>Discount ₹ <input type="number" [(ngModel)]="discount"></label>
-        <label>Less URD ₹ <input type="number" [(ngModel)]="urdDeduction"></label>
+        <!-- <label>Less URD ₹ <input type="number" [(ngModel)]="urdDeduction"></label> - -->
         <label>Tax % <input type="number" [(ngModel)]="taxPercent"></label>
         <div>Net Payable: <strong>₹{{grand() | number:'1.2-2'}}</strong></div>
       </div>
@@ -98,6 +101,7 @@
   <!-- Generated Bill Preview -->
   <section class="bill" *ngIf="lastBill">
     <div class="bill-banner">
+     <p class="tagline">#ESTIMATE#</p>
       <p class="tagline">|| श्री || &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; विश्वास हिच परंपरा...</p>
       <h2>{{shop.shopName}}</h2>
       <p>{{shop.address}} · Mo. {{shop.phone}}</p>
@@ -122,23 +126,22 @@
     <table>
       <thead>
         <tr>
-          <th>Description & HSN</th>
+          <th>Item</th>
+          <th>Metal</th>
+          <th>Weight(gm)</th>
           <th>Purity</th>
-          <th>Pcs</th>
-          <th>Gross Wt Gm</th>
-          <th>Net Wt GM</th>
-          <th>Rate Per Gm</th>
-          <th>Making Per Gm</th>
+          <th>Rate/g</th>
+          <th>Making</th>
           <th>Amount</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let x of lastBill.items">
           <td>{{x.itemName}}<br><small>{{x.hsn}}</small></td>
+          <td>{{x.metal}}</td>
+          <td>{{x.grossWeight | number:'1.3-3'}}</td> 
           <td>{{x.purity}}</td>
-          <td>{{x.pieces}}</td>
-          <td>{{x.grossWeight | number:'1.3-3'}}</td>
-          <td>{{x.netWeight | number:'1.3-3'}}</td>
           <td>{{x.ratePerGram | number:'1.2-2'}}</td>
           <td>{{x.makingCharges | number:'1.2-2'}}</td>
           <td>{{x.amount | number:'1.2-2'}}</td>
@@ -148,19 +151,17 @@
 
     <div class="bill-summary grid2">
       <div class="left-summary">
-        <p><b>Pay_Mode:</b><select [(ngModel)]="paymode">
-              <option>Online</option>
-              <option>Cash</option>
-            </select></p>
-        <p><b>Rs.:</b> {{lastBill.amountInWords}}</p>
-        <!-- <p><b>Gold Sale Wt Total:</b> {{lastBill.totalSaleWeight | number:'1.3-3'}}</p>
-        <p><b>Gold URD Wt:</b> {{lastBill.totalUrdWeight | number:'1.3-3'}}</p> -->
+        <p><b>Pay_Mode: </b>{{paymode}}</p>
+        <!-- <p><b>Rs.:</b> {{lastBill.amountInWords}}</p> -->
+       <!-- <p><b>Gold Sale Wt Total:</b> {{lastBill.totalSaleWeight | number:'1.3-3'}}</p> -->
+        <!-- <p><b>Gold URD Wt:</b> {{lastBill.totalUrdWeight | number:'1.3-3'}}</p>  -->
       </div>
       <div class="right-summary">
-        <p>Subtotal: ₹{{lastBill.subtotal | number:'1.2-2'}}</p>
-        <p>Discount: ₹{{lastBill.discount | number:'1.2-2'}}</p>
-        <p>Less URD: ₹{{lastBill.urdDeduction | number:'1.2-2'}}</p>
-        <h2>Net Payable: ₹{{lastBill.grandTotal | number:'1.2-2'}}</h2>
+         <div>Subtotal: <b>₹{{subtotal() | number:'1.2-2'}}</b></div>
+        <div><label>Discount: ₹<b>{{discount}}</b></label></div>
+        <!-- <label>Less URD ₹ <input type="number" [(ngModel)]="urdDeduction"></label> - -->
+         <div><label>Tax % :<b>{{taxPercent}}</b></label></div>
+        <div>Net Payable: <strong>₹{{grand() | number:'1.2-2'}}</strong></div>
       </div>
     </div>
 
@@ -168,7 +169,7 @@
       <div class="grid2">
         <div>
           <p><b>Salesman:</b> {{lastBill.salesmanName}} &nbsp;&nbsp; <b>Billed By:</b> {{lastBill.billedBy}}</p>
-          <p><b>IRN No.:</b> {{lastBill.irnNumber}}</p>
+          <!-- <p><b>IRN No.:</b> {{lastBill.irnNumber}}</p> -->
           <small>We Declare that this invoice shows the actual price of the goods described and the all particulars are true and correct.</small>
         </div>
         <div class="signature">
@@ -182,7 +183,7 @@
   </section>
 
   <!-- Bill History -->
-  <section class="panel">
+  <!-- <section class="panel">
     <h2>Previous Bills</h2>
     <table>
       <thead>
@@ -204,5 +205,5 @@
         </tr>
       </tbody>
     </table>
-  </section>
+  </section> -->
 </div>

@@ -44,9 +44,10 @@ export class AppComponent {
   taxPercent = 3;
   discount = 0;
   urdDeduction = 0;
+  tax = 0;
   cashPaid = 0;
   amountInWords = '';
-  paymode= '';
+  paymode = '';
 
   items: Item[] = [
     {
@@ -126,22 +127,42 @@ export class AppComponent {
     const rateAmount = netWeight * (+x.ratePerGram || 0);
     const makingAmount = netWeight * (+x.makingCharges || 0);
 
-    return rateAmount + makingAmount ;
+    return rateAmount + makingAmount;
+  }
+
+  isOldMetal(metal: string): boolean {
+    if (!metal) return false;
+    const clean = metal.trim().toLowerCase();
+    return clean.startsWith('old') || clean.includes('_old') || clean.includes('old_');
   }
 
   subtotal() {
-    return this.items.reduce((s, x) => s + this.amount(x), 0);
+    return this.items.reduce((s, x) => {
+      const amt = Math.abs(this.amount(x));
+      if (this.isOldMetal(x.metal)) {
+        return s - amt;
+      }
+      return s + amt;
+    }, 0);
   }
 
   grand() {
     const sub = this.subtotal();
     const afterDiscounts = sub - (+this.discount || 0) - (+this.urdDeduction || 0);
-    const taxAmount = (afterDiscounts * (+this.taxPercent || 0)) / 100;
-    return Math.max(0, afterDiscounts + taxAmount);
+    const taxBase = Math.max(0, afterDiscounts);
+    const taxAmount = (taxBase * (+this.taxPercent || 0)) / 100;
+    
+    return afterDiscounts + taxAmount;
   }
 
   totalSaleWeight() {
-    return this.items.reduce((sum, item) => sum + (this.net(item) || 0), 0);
+    return this.items.reduce((sum, item) => {
+      const netWt = this.net(item) || 0;
+      if (this.isOldMetal(item.metal)) {
+        return sum;
+      }
+      return sum + netWt;
+    }, 0);
   }
 
   generate() {
@@ -151,17 +172,11 @@ export class AppComponent {
 
     this.message = '';
 
-    // Validate weights
     for (const item of this.items) {
       if ((+item.grossWeight || 0) < 0) {
         this.message = 'Gross weight cannot be negative.';
         return;
       }
-
-   
-
-
-      // Sync computed net weight back into item payload
       item.netWeight = this.net(item);
     }
 
@@ -175,6 +190,7 @@ export class AppComponent {
       billedBy: this.billedBy,
       taxPercent: this.taxPercent,
       discount: this.discount,
+      tax: this.tax,
       urdDeduction: this.urdDeduction,
       cashPaid: this.cashPaid,
       amountInWords: this.amountInWords,
@@ -188,13 +204,12 @@ export class AppComponent {
       .subscribe({
         next: (bill) => {
           this.lastBill = bill;
-          this.loadHistory();
-          this.downloadPdf(bill.id, bill.billNumber);
+         // this.loadHistory();
+         // this.downloadPdf(bill.id, bill.billNumber);
         },
         error: (error) => {
           console.error('Bill generation error:', error);
-          this.message =
-            error?.error?.message || 'Could not generate bill.';
+          this.message = error?.error?.message || 'Could not generate bill.';
         }
       });
   }
@@ -208,6 +223,54 @@ export class AppComponent {
   }
 
   print() {
+    
+    if (!this.shop) {
+      return;
+    }
+
+    this.message = '';
+
+    for (const item of this.items) {
+      if ((+item.grossWeight || 0) < 0) {
+        this.message = 'Gross weight cannot be negative.';
+        return;
+      }
+      item.netWeight = this.net(item);
+    }
+
+    const payload = {
+      customerName: this.customerName,
+      customerAddress: this.customerAddress,
+      customerPhone: this.customerPhone,
+      customerPan: this.customerPan,
+      urdNumber: this.urdNumber,
+      salesmanName: this.salesmanName,
+      billedBy: this.billedBy,
+      taxPercent: this.taxPercent,
+      discount: this.discount,
+      tax: this.tax,
+      urdDeduction: this.urdDeduction,
+      cashPaid: this.cashPaid,
+      amountInWords: this.amountInWords,
+      totalSaleWeight: this.totalSaleWeight(),
+      items: this.items,
+      paymode: this.paymode
+    };
+
+    this.http
+      .post<any>(`${this.api}/shops/${this.shop.shopId}/bills`, payload)
+      .subscribe({
+        next: (bill) => {
+          this.lastBill = bill;
+         // this.loadHistory();
+         this.downloadPdf(bill.id, bill.billNumber);
+        },
+        error: (error) => {
+          console.error('Bill generation error:', error);
+          this.message = error?.error?.message || 'Could not generate bill.';
+        }
+      });
+  
     window.print();
   }
 
