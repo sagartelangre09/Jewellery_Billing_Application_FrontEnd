@@ -1,0 +1,51 @@
+<div class="search-container">
+  <h2>Search Bills</h2>
+
+  <!-- Search Bar Input -->
+  <div class="search-box">
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      (input)="onSearchInput()"
+      placeholder="Search by customer name or phone number..."
+      class="form-control"
+    />
+  </div>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="loading" class="spinner">
+    Searching...
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="error-msg">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Results Table -->
+  <table *ngIf="!loading && bills.length > 0" class="bill-table">
+    <thead>
+      <tr>
+        <th>Bill No</th>
+        <th>Customer Name</th>
+        <th>Phone</th>
+        <th>Net Payable</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bill of bills">
+        <td>{{ bill.billNumber }}</td>
+        <td>{{ bill.customerName }}</td>
+        <td>{{ bill.customerPhone }}</td>
+        <td>{{ bill.netPayable | currency:'INR':'symbol' }}</td>
+        <td>{{ bill.createdAt | date:'mediumDate' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- No Results Found -->
+  <div *ngIf="!loading && searchQuery.trim() !== '' && bills.length === 0" class="no-results">
+    No bills found matching "{{ searchQuery }}".
+  </div>
+</div>

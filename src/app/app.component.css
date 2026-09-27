@@ -1,21 +1,35 @@
 /* ==========================================
-   GLOBAL & RESETS
+   GLOBAL VARIABLES & RESET
    ========================================== */
 :host {
   --primary-color: #4a143c;
   --primary-hover: #360d2b;
-  --bg-color: #f4f5f7;
+  --primary-light: #f7eff5;
+  --accent-gold: #d97706;
+  --accent-gold-bg: #fffbeb;
+  --bg-color: #f8fafc;
   --card-bg: #ffffff;
-  --text-color: #2b2b2b;
-  --border-color: #e0e0e0;
-  --danger-color: #d32f2f;
-  --danger-hover: #b71c1c;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #cbd5e1;
+  --border-light: #e2e8f0;
+  --danger-color: #dc2626;
+  --danger-hover: #b91c1c;
 
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  color: var(--text-color);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text-main);
   display: block;
   background-color: var(--bg-color);
   min-height: 100vh;
+  line-height: 1.5;
 }
 
 * {
@@ -23,61 +37,73 @@
 }
 
 /* ==========================================
-   LOGIN CARD
+   CONTAINER & LAYOUT
    ========================================== */
 .page {
-  padding: 20px;
+  padding: 24px 16px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
+/* ==========================================
+   LOGIN CARD
+   ========================================== */
 .login-card {
-  max-width: 400px;
-  margin: 80px auto;
-  padding: 30px;
+  max-width: 420px;
+  margin: 60px auto;
+  padding: 36px 32px;
   background: var(--card-bg);
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-light);
   text-align: center;
 }
 
 .login-card h1 {
   margin-top: 0;
+  margin-bottom: 6px;
   color: var(--primary-color);
-  font-size: 24px;
+  font-size: 26px;
+  font-weight: 700;
 }
 
 .login-card p {
-  color: #666;
+  color: var(--text-muted);
   font-size: 14px;
   margin-bottom: 24px;
 }
 
 .login-card input {
   width: 100%;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .login-card button {
   width: 100%;
   padding: 12px;
-  font-size: 16px;
+  font-size: 15px;
+  margin-top: 8px;
 }
 
 .hint {
   font-size: 12px;
-  color: #777;
-  margin-top: 16px;
-  background: #f8f9fa;
-  padding: 8px;
-  border-radius: 6px;
+  color: var(--text-muted);
+  margin-top: 18px;
+  background: var(--bg-color);
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
 }
 
 .error {
   color: var(--danger-color);
   font-size: 13px;
   margin-top: 12px;
-  font-weight: 500;
+  font-weight: 600;
+  background: #fef2f2;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid #fecaca;
 }
 
 /* ==========================================
@@ -88,21 +114,24 @@ header {
   justify-content: space-between;
   align-items: center;
   background: var(--card-bg);
-  padding: 16px 24px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  margin-bottom: 20px;
+  padding: 18px 24px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+  margin-bottom: 24px;
 }
 
 header h1 {
-  margin: 0;
-  font-size: 20px;
+  margin: 0 0 4px 0;
+  font-size: 22px;
+  font-weight: 700;
   color: var(--primary-color);
 }
 
 header span {
   font-size: 13px;
-  color: #666;
+  color: var(--text-muted);
+  font-weight: 500;
 }
 
 /* ==========================================
@@ -111,60 +140,75 @@ header span {
 .panel {
   background: var(--card-bg);
   padding: 24px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
   margin-bottom: 24px;
 }
 
 .panel h2 {
   margin-top: 0;
   font-size: 18px;
+  font-weight: 700;
   color: var(--primary-color);
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 2px solid var(--primary-light);
   padding-bottom: 10px;
   margin-bottom: 20px;
 }
 
-/* Grid Layouts */
+/* Responsive Grids */
 .grid2, .grid3, .grid4 {
   display: grid;
   gap: 16px;
   margin-bottom: 16px;
 }
 
-.grid2 { grid-template-columns: repeat(2, 1fr); }
-.grid3 { grid-template-columns: repeat(3, 1fr); }
-.grid4 { grid-template-columns: repeat(4, 1fr); }
+.grid2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.grid3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.grid4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 
 /* Form Controls */
 input, select {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid var(--border-color);
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   font-size: 14px;
+  color: var(--text-main);
+  background-color: #ffffff;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 input:focus, select:focus {
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(74, 20, 96, 0.1);
+  box-shadow: 0 0 0 3px rgba(74, 20, 60, 0.12);
 }
 
+select {
+  cursor: pointer;
+}
+
+/* Buttons */
 button {
-  background: var(--primary-color);
-  color: #fff;
+  background-color: var(--primary-color);
+  color: #ffffff;
   border: none;
   padding: 10px 20px;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
 }
 
 button:hover {
-  background: var(--primary-hover);
+  background-color: var(--primary-hover);
+  box-shadow: var(--shadow-sm);
 }
 
 button:active {
@@ -172,26 +216,28 @@ button:active {
 }
 
 button.secondary {
-  background: #e9ecef;
-  color: #495057;
+  background-color: #f1f5f9;
+  color: #334155;
+  border: 1px solid var(--border-color);
 }
 
 button.secondary:hover {
-  background: #dee2e6;
+  background-color: #e2e8f0;
 }
 
 button.danger {
-  background: var(--danger-color);
-  padding: 6px 12px;
-  font-size: 16px;
+  background-color: var(--danger-color);
+  padding: 6px 10px;
+  font-size: 14px;
+  line-height: 1;
 }
 
 button.danger:hover {
-  background: var(--danger-hover);
+  background-color: var(--danger-hover);
 }
 
 /* ==========================================
-   TABLES & DATA INPUT
+   TABLES & DATA ENTRY
    ========================================== */
 table {
   width: 100%;
@@ -200,31 +246,43 @@ table {
 }
 
 th, td {
-  padding: 10px 12px;
+  padding: 10px 8px;
   text-align: left;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-light);
   font-size: 14px;
+  vertical-align: middle;
 }
 
 th {
-  background: #f8f9fa;
+  background-color: var(--bg-color);
   font-weight: 600;
-  color: #495057;
+  color: var(--text-muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-td input {
-  padding: 6px 8px;
+td input, td select {
+  padding: 8px;
+  font-size: 13px;
+}
+
+tbody tr:hover {
+  background-color: var(--primary-light);
 }
 
 /* ==========================================
    TOTALS & SUMMARY SECTION
    ========================================== */
 .totals-section {
-  background: #fdfbfd;
-  border: 1px solid #f0e6ed;
-  padding: 16px;
-  border-radius: 8px;
+  background: var(--primary-light);
+  border: 1px solid #ead6e5;
+  padding: 20px;
+  border-radius: var(--radius-md);
   margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .totals {
@@ -232,7 +290,7 @@ td input {
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  gap: 20px;
+  gap: 24px;
   font-size: 15px;
 }
 
@@ -240,129 +298,154 @@ td input {
   display: flex;
   align-items: center;
   gap: 8px;
+  font-weight: 500;
 }
 
 .totals label input {
   width: 100px;
+  text-align: right;
+  font-weight: 600;
+}
+
+.totals div {
+  font-weight: 500;
 }
 
 .totals strong {
-  font-size: 18px;
+  font-size: 20px;
   color: var(--primary-color);
 }
 
 /* ==========================================
-   BILL PREVIEW (PHYSICAL RECEIPT DESIGN)
+   GENERATED BILL PREVIEW (PRINT RECEIPT)
    ========================================== */
 .bill {
   background: #ffffff;
-  border: 1px solid #222;
-  padding: 24px;
-  margin-bottom: 24px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid #1e293b;
+  padding: 32px;
+  margin: 24px auto;
+  max-width: 800px;
+  box-shadow: var(--shadow-md);
+  color: #000000;
 }
 
 .bill-banner {
   background-color: var(--primary-color);
   color: #ffffff;
-  padding: 16px;
+  padding: 20px;
   text-align: center;
   border-radius: 4px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .bill-banner .tagline {
-  font-size: 11px;
+  font-size: 12px;
   margin: 0 0 6px 0;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  font-weight: 500;
 }
 
 .bill-banner h2 {
   margin: 0;
-  font-size: 26px;
-  letter-spacing: 1px;
+  font-size: 28px;
+  letter-spacing: 0.5px;
+  font-weight: 700;
 }
 
 .bill-banner p {
   margin: 6px 0 0 0;
-  font-size: 12px;
-  opacity: 0.9;
+  font-size: 13px;
+  opacity: 0.92;
 }
 
 .bill-meta {
-  border-bottom: 1px solid #222;
+  border-bottom: 1px solid #000000;
   padding-bottom: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   font-size: 13px;
+  line-height: 1.6;
 }
 
 .bill-meta p {
-  margin: 4px 0;
+  margin: 2px 0;
 }
 
 .section-title {
   text-align: center;
-  border: 1px solid #222;
-  border-left: none;
-  border-right: none;
+  background-color: var(--accent-gold-bg);
+  color: var(--accent-gold);
+  border: 1px solid #000000;
   padding: 6px;
-  margin: 12px 0;
+  margin: 16px 0;
   font-size: 14px;
-  letter-spacing: 1px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
 }
 
 .bill table {
-  border: 1px solid #222;
+  border: 1px solid #000000;
+  margin-bottom: 0;
 }
 
 .bill th, .bill td {
-  border: 1px solid #222;
-  padding: 6px 8px;
+  border: 1px solid #000000;
+  padding: 8px 10px;
+  font-size: 13px;
+  color: #000000;
+}
+
+.bill th {
+  background-color: #f1f5f9;
+  text-transform: none;
+  font-weight: 700;
 }
 
 .bill-summary {
-  border: 1px solid #222;
+  border: 1px solid #000000;
   border-top: none;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+  background-color: #ffffff;
 }
 
 .left-summary, .right-summary {
-  padding: 10px;
+  padding: 12px;
+  font-size: 13px;
 }
 
 .left-summary {
-  border-right: 1px solid #222;
+  border-right: 1px solid #000000;
 }
 
 .right-summary {
   text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .bill-footer {
-  border-top: 1px solid #222;
-  padding-top: 12px;
+  border-top: 1px solid #000000;
+  padding-top: 16px;
   font-size: 12px;
 }
 
+.bill-footer small {
+  display: block;
+  margin-top: 6px;
+  color: #334155;
+  line-height: 1.4;
+}
+
 .signature {
-  text-align: center;
-  margin-top: 20px;
+  text-align: right;
+  margin-top: 24px;
+  line-height: 1.6;
 }
 
 /* ==========================================
-   RESPONSIVE DESIGN & PRINT
+   RESPONSIVE DESIGN
    ========================================== */
-@media (max-width: 900px) {
-  .grid3, .grid4 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .grid2, .grid3, .grid4 {
-    grid-template-columns: 1fr;
-  }
-
+@media (max-width: 768px) {
   header {
     flex-direction: column;
     align-items: flex-start;
@@ -371,7 +454,8 @@ td input {
 
   .totals {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    gap: 12px;
   }
 
   .totals label input {
@@ -380,37 +464,59 @@ td input {
 
   .panel {
     padding: 16px;
+  }
+
+  /* Handle scrolling for tables on narrow screens */
+  .panel {
     overflow-x: auto;
   }
 
   table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
+    min-width: 650px;
   }
 }
+
+/* ==========================================
+   PRINT SPECIFIC STYLES
+   ========================================== */
 @media print {
-  /* Hide headers, login, input forms, buttons, and previous history */
+  /* Hide non-printable app UI elements */
   header,
   .panel,
   button,
-  .login-card {
+  .login-card,
+  app-bill-search {
     display: none !important;
   }
 
-  /* Ensure the bill section takes up full width and is clean */
+  /* Reset document viewport & background for physical print */
+  body, .page {
+    background: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: auto !important;
+  }
+
+  /* Ensure the bill output spans cleanly */
   .bill {
     display: block !important;
     width: 100% !important;
+    max-width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
     box-shadow: none !important;
+    border: none !important;
   }
 
-  /* Optional: Reset page background for print */
-  body, .page {
-    background: white !important;
-    margin: 0 !important;
-    padding: 0 !important;
+  .bill-banner {
+    background-color: #4a143c !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .section-title {
+    background-color: #fffbeb !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }

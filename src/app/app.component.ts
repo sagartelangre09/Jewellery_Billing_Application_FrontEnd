@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { BillSearch } from './component/bill-search/bill-search';
 
 interface Item {
   itemName: string;
@@ -20,7 +21,7 @@ interface Item {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,BillSearch],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
