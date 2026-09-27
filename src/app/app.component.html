@@ -44,7 +44,7 @@
           <th>Purity</th>
           <!-- <th>Net g</th> -->
           <th>Rate/g</th>
-          <th>Making</th>
+          <th>Making(%)</th>
           <th>Amount</th>
           <th></th>
         </tr>
@@ -59,14 +59,19 @@
                <option>Old_Silver</option>    
             </select></td>
           <td><input type="number" [(ngModel)]="x.grossWeight"></td>
-           <td><select [(ngModel)]="x.Purity">
+           <td><select [(ngModel)]="x.purity">
               <option>24k</option>
               <option>22k</option>
               <option>18k</option>
               <option>98.50</option>
             </select></td>
           <td><input type="number" [(ngModel)]="x.ratePerGram"></td>
-          <td><input type="number" [(ngModel)]="x.makingCharges"></td>
+          <td><select [(ngModel)]="x.makingCharges">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select></td>
           <td>{{amount(x)|number:'1.2-2'}}</td>
           <td><button class="danger" (click)="removeItem(i)">×</button></td>
         </tr>
@@ -78,8 +83,6 @@
     <!-- Payment & Deduction Breakdown -->
     <div class="totals-section">
        <div class="grid2">
-        <!-- <label>Cash Paid ₹ <input type="number" [(ngModel)]="cashPaid"></label> -->
-        <!-- <label>Amount in Words <input [(ngModel)]="amountInWords" placeholder="One Lakh..."></label> -->
           <p><b>Pay_Mode:</b><select [(ngModel)]="paymode">
               <option>Online</option>
               <option>Cash</option>
@@ -89,7 +92,6 @@
       <div class="totals">
         <div>Subtotal: <b>₹{{subtotal() | number:'1.2-2'}}</b></div>
         <label>Discount ₹ <input type="number" [(ngModel)]="discount"></label>
-        <!-- <label>Less URD ₹ <input type="number" [(ngModel)]="urdDeduction"></label> - -->
         <label>Tax % <input type="number" [(ngModel)]="taxPercent"></label>
         <div>Net Payable: <strong>₹{{grand() | number:'1.2-2'}}</strong></div>
       </div>
@@ -152,14 +154,10 @@
     <div class="bill-summary grid2">
       <div class="left-summary">
         <p><b>Pay_Mode: </b>{{paymode}}</p>
-        <!-- <p><b>Rs.:</b> {{lastBill.amountInWords}}</p> -->
-       <!-- <p><b>Gold Sale Wt Total:</b> {{lastBill.totalSaleWeight | number:'1.3-3'}}</p> -->
-        <!-- <p><b>Gold URD Wt:</b> {{lastBill.totalUrdWeight | number:'1.3-3'}}</p>  -->
       </div>
       <div class="right-summary">
          <div>Subtotal: <b>₹{{subtotal() | number:'1.2-2'}}</b></div>
         <div><label>Discount: ₹<b>{{discount}}</b></label></div>
-        <!-- <label>Less URD ₹ <input type="number" [(ngModel)]="urdDeduction"></label> - -->
          <div><label>Tax % :<b>{{taxPercent}}</b></label></div>
         <div>Net Payable: <strong>₹{{grand() | number:'1.2-2'}}</strong></div>
       </div>

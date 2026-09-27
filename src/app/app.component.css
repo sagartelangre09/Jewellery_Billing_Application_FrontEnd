@@ -389,26 +389,28 @@ td input {
     white-space: nowrap;
   }
 }
-
 @media print {
-  body * {
-    visibility: hidden;
+  /* Hide headers, login, input forms, buttons, and previous history */
+  header,
+  .panel,
+  button,
+  .login-card {
+    display: none !important;
   }
 
-  .bill, .bill * {
-    visibility: visible;
-  }
-
+  /* Ensure the bill section takes up full width and is clean */
   .bill {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    border: none;
-    box-shadow: none;
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
   }
 
-  .bill button {
-    display: none;
+  /* Optional: Reset page background for print */
+  body, .page {
+    background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 }
